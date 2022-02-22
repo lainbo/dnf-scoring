@@ -1,17 +1,29 @@
 <template>
   <div class="">
     <div
-      class="total_score h-55px flex items-center justify-around text-26px font-bold space-x-16px"
+      class="total_score h-55px flex items-center justify-around text-26px font-bold"
+      @click.ctrl="clearNum"
     >
       <div :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">
         {{ firstBlue ? '蓝队' : '红队' }}
       </div>
-      <div class="flex space-x-8px">
-        <span :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">6</span>
-        <div class="total_icon cursor-pointer" @click="firstBlue = !firstBlue">
-          <i class="el-icon-sort"></i>
+      <div class="flex">
+        <div
+          class="mr-14px"
+          :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'"
+        >
+          <ScoreItem :score="pageInfo.num1" @change-score="changeScore1" />
         </div>
-        <span :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'">3</span>
+        <i
+          class="total_icon cursor-pointer el-icon-sort"
+          @click="firstBlue = !firstBlue"
+        ></i>
+        <div
+          class="w-30px ml-26px"
+          :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'"
+        >
+          <ScoreItem :score="pageInfo.num2" @change-score="changeScore2" />
+        </div>
       </div>
       <div :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'">
         {{ firstBlue ? '红队' : '蓝队' }}
@@ -23,6 +35,7 @@
           <template v-slot="{ row }">
             <template v-if="row.editName1">
               <el-input
+                ref="elInputName1"
                 maxlength="2"
                 @blur="row.editName1 = false"
                 @keyup.enter.native="row.editName1 = false"
@@ -33,7 +46,7 @@
             <template v-else>
               <div
                 class="select-none cursor-pointer"
-                @click="row.editName1 = true"
+                @click="changeName(row, 'editName1', 'elInputName1')"
               >
                 {{ row.name1 }}
               </div>
@@ -45,67 +58,80 @@
             <Cell :row="row" field="killNum1" />
           </template>
         </el-table-column>
-        <el-table-column prop="pingNum1" label="卡" width="40" align="center">
+        <el-table-column prop="akNum1" label="AK" width="50" align="center">
           <template v-slot="{ row }">
-            <Cell :row="row" field="pingNum1" />
+            <Cell hasA :row="row" field="akNum1" />
           </template>
         </el-table-column>
-        <el-table-column prop="akNum1" label="AK" width="40" align="center">
+        <el-table-column prop="pingNum1" label="卡" width="50" align="center">
           <template v-slot="{ row }">
-            <Cell :row="row" field="akNum1" />
+            <Cell hasAdd :row="row" field="pingNum1" />
           </template>
         </el-table-column>
         <el-table-column prop="name2" label="ID" min-width="60">
           <template v-slot="{ row }">
             <template v-if="row.editName2">
               <el-input
+                ref="elInputName2"
                 maxlength="2"
                 @blur="row.editName2 = false"
                 @keyup.enter.native="row.editName2 = false"
-                v-model="row.name1"
+                v-model="row.name2"
               ></el-input>
             </template>
 
             <template v-else>
               <div
-                class="select-none cursor-pointer"
-                @click="row.editName2 = true"
+                class="select-none cursor-pointer ml-8px"
+                @click="changeName(row, 'editName2', 'elInputName2')"
               >
                 {{ row.name2 }}
               </div>
             </template>
           </template>
         </el-table-column>
-        <el-table-column prop="killNum2" label="Kill" width="40" align="center">
+        <el-table-column prop="killNum2" label="Kill" width="50" align="center">
           <template v-slot="{ row }">
             <Cell :row="row" field="killNum2" />
           </template>
         </el-table-column>
-        <el-table-column prop="pingNum2" label="卡" width="40" align="center">
+        <el-table-column prop="akNum2" label="AK" width="50" align="center">
           <template v-slot="{ row }">
-            <Cell :row="row" field="pingNum2" />
+            <Cell hasA :row="row" field="akNum2" />
           </template>
         </el-table-column>
-        <el-table-column prop="akNum2" label="AK" width="40" align="center">
+        <el-table-column prop="pingNum2" label="卡" width="50" align="center">
           <template v-slot="{ row }">
-            <Cell :row="row" field="akNum2" />
+            <Cell hasAdd :row="row" field="pingNum2" />
           </template>
         </el-table-column>
       </el-table>
+    </div>
+    <div
+      class="h-70px text-24px font-bold text-center pt-8px leading-28px"
+      contenteditable="true"
+    >
+      {{ psInfo }}
     </div>
   </div>
 </template>
 
 <script>
 import Cell from './components/cell.vue'
+import ScoreItem from './components/scoreItem.vue'
 export default {
-  components: { Cell },
+  components: { Cell, ScoreItem },
   data () {
     return {
+      psInfo: '今天我入的',
+      pageInfo: {
+        num1: 0,
+        num2: 0
+      },
       firstBlue: true,
       tableData: [
         {
-          name1: '-',
+          name1: 'ID',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -113,7 +139,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: '-',
+          name2: 'ID',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -123,7 +149,7 @@ export default {
           akNum2Opt: false
         },
         {
-          name1: '-',
+          name1: 'ID',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -131,7 +157,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: '-',
+          name2: 'ID',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -141,7 +167,7 @@ export default {
           akNum2Opt: false
         },
         {
-          name1: '-',
+          name1: 'ID',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -149,7 +175,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: '-',
+          name2: 'ID',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -159,7 +185,7 @@ export default {
           akNum2Opt: false
         },
         {
-          name1: '-',
+          name1: 'ID',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -167,7 +193,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: '-',
+          name2: 'ID',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -181,7 +207,52 @@ export default {
   },
   created () {},
   mounted () {},
-  methods: {},
+  methods: {
+    clearNum () {
+      this.pageInfo = this.$options.data().pageInfo
+      this.tableData.forEach((i) => {
+        const arr = [
+          'killNum1',
+          'pingNum1',
+          'akNum1',
+          'killNum2',
+          'pingNum2',
+          'akNum2'
+        ]
+        arr.forEach((j) => {
+          i[j] = 0
+        })
+      })
+    },
+    // 更改右侧的分数
+    changeScore2 (data, operate) {
+      operate === 'add'
+        ? (this.pageInfo.num2 = data + 1)
+        : (this.pageInfo.num2 = data - 1)
+    },
+    // 更改左侧的分数
+    changeScore1 (data, operate) {
+      operate === 'add'
+        ? (this.pageInfo.num1 = data + 1)
+        : (this.pageInfo.num1 = data - 1)
+    },
+    // 将所有input框恢复成文字
+    recoverText () {
+      this.tableData.forEach((i) => {
+        i.editName1 = false
+        i.editName2 = false
+      })
+    },
+    // 变更ID
+    changeName (row, field, refName) {
+      this.recoverText()
+      row[field] = true
+      this.$nextTick(() => {
+        this.$refs[refName].focus()
+        this.$refs[refName].select()
+      })
+    }
+  },
   computed: {},
   watch: {}
 }

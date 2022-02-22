@@ -4,8 +4,13 @@
     @mouseenter="row[`${field}Opt`] = true"
     @mouseleave="row[`${field}Opt`] = false"
   >
-    <div class="w-50px transition-all mr-12px">
-      {{ row[field] }}
+    <div class="w-50px transition-all mr-8px">
+      <template v-if="hasAdd && row[field] > 0">+</template>
+      <template v-else-if="hasA && row[field] > 0">A</template>
+      <span v-if="['killNum1', 'killNum2'].includes(field)">
+        {{ row[field] }}
+      </span>
+      <span v-else>{{ row[field] || '-' }}</span>
     </div>
     <div
       class="flex flex-col justify-center space-y-1 absolute right-0 top-1/2 transform -translate-y-1/2"
@@ -27,6 +32,14 @@
 <script>
 export default {
   props: {
+    hasA: {
+      type: Boolean,
+      default: false
+    },
+    hasAdd: {
+      type: Boolean,
+      default: false
+    },
     row: {
       type: Object
     },
@@ -44,7 +57,7 @@ export default {
       const afterAddNum = row[field] + 1
       const afterSubtractNum = row[field] - 1
       if (afterAddNum > 99 && operate === 'add') {
-        this.$message.error('咋可能杀这么多？')
+        this.$message.error('咋可能这么多？')
         return
       }
       if (afterSubtractNum < 0 && operate === 'subtract') {
