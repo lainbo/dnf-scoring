@@ -51,9 +51,13 @@ export default {
   mounted () { },
   methods: {
     calcNum (row) {
-      return row[this.field] === 1 && this.hasA
-        ? '+'
-        : row[this.field]
+      if (row[this.field] === 0) {
+        return '-'
+      } else {
+        return row[this.field] === 1 && this.hasA
+          ? '+'
+          : row[this.field]
+      }
     },
     changeNum (row, field, operate) {
       const afterAddNum = row[field] + 1
