@@ -1,35 +1,22 @@
 <template>
-  <div class="">
+  <div class>
     <div
       class="total_score h-55px flex items-center justify-around text-26px font-bold"
       @click.ctrl="clearNum"
     >
-      <div :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">
-        {{ firstBlue ? '蓝队' : '红队' }}
-      </div>
+      <div :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">{{ firstBlue ? '蓝队' : '红队' }}</div>
       <div class="flex">
-        <div
-          class="mr-14px"
-          :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'"
-        >
+        <div class="mr-14px" :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">
           <ScoreItem :score="pageInfo.num1" @change-score="changeScore1" />
         </div>
-        <i
-          class="total_icon cursor-pointer el-icon-sort"
-          @click="firstBlue = !firstBlue"
-        ></i>
-        <div
-          class="w-30px ml-26px"
-          :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'"
-        >
+        <i class="total_icon cursor-pointer el-icon-sort" @click="firstBlue = !firstBlue"></i>
+        <div class="w-30px ml-26px" :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'">
           <ScoreItem :score="pageInfo.num2" @change-score="changeScore2" />
         </div>
       </div>
-      <div :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'">
-        {{ firstBlue ? '红队' : '蓝队' }}
-      </div>
+      <div :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'">{{ firstBlue ? '红队' : '蓝队' }}</div>
     </div>
-    <div class="table_main">
+    <div class="table_main px-8px">
       <el-table :data="tableData" style="width: 100%" :show-header="false">
         <el-table-column prop="name1" label="ID" min-width="60">
           <template v-slot="{ row }">
@@ -47,9 +34,7 @@
               <div
                 class="select-none cursor-pointer"
                 @click="changeName(row, 'editName1', 'elInputName1')"
-              >
-                {{ row.name1 }}
-              </div>
+              >{{ row.name1 }}</div>
             </template>
           </template>
         </el-table-column>
@@ -84,9 +69,7 @@
               <div
                 class="select-none cursor-pointer ml-8px"
                 @click="changeName(row, 'editName2', 'elInputName2')"
-              >
-                {{ row.name2 }}
-              </div>
+              >{{ row.name2 }}</div>
             </template>
           </template>
         </el-table-column>
@@ -110,9 +93,7 @@
     <div
       class="h-70px text-24px font-bold text-center pt-8px leading-28px"
       contenteditable="true"
-    >
-      {{ psInfo }}
-    </div>
+    >{{ psInfo }}</div>
   </div>
 </template>
 
@@ -205,8 +186,8 @@ export default {
       ]
     }
   },
-  created () {},
-  mounted () {},
+  created () { },
+  mounted () { },
   methods: {
     clearNum () {
       this.pageInfo = this.$options.data().pageInfo

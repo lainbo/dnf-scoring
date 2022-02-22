@@ -7,10 +7,8 @@
     <div class="w-50px transition-all mr-8px">
       <template v-if="hasAdd && row[field] > 0">+</template>
       <template v-else-if="hasA && row[field] > 0">A</template>
-      <span v-if="['killNum1', 'killNum2'].includes(field)">
-        {{ row[field] }}
-      </span>
-      <span v-else>{{ row[field] || '-' }}</span>
+      <span v-if="['killNum1', 'killNum2'].includes(field)">{{ row[field] }}</span>
+      <span v-else>{{ calcNum(row) }}</span>
     </div>
     <div
       class="flex flex-col justify-center space-y-1 absolute right-0 top-1/2 transform -translate-y-1/2"
@@ -19,8 +17,7 @@
       <i
         class="text-14px cursor-pointer text-[#67C23A] el-icon-circle-plus"
         @click="changeNum(row, field, 'add')"
-      >
-      </i>
+      ></i>
       <i
         class="text-14px cursor-pointer text-[#F56C6C] el-icon-remove"
         @click="changeNum(row, field, 'subtract')"
@@ -50,9 +47,14 @@ export default {
   data () {
     return {}
   },
-  created () {},
-  mounted () {},
+  created () { },
+  mounted () { },
   methods: {
+    calcNum (row) {
+      return row[this.field] === 1 && this.hasA
+        ? '+'
+        : row[this.field]
+    },
     changeNum (row, field, operate) {
       const afterAddNum = row[field] + 1
       const afterSubtractNum = row[field] - 1
