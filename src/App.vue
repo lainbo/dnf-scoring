@@ -1,7 +1,7 @@
 <template>
   <div class>
     <div
-      class="total_score h-55px flex items-center justify-around text-26px font-bold"
+      class="total_score h-55px flex items-center justify-around text-26px font-bold px-10px"
       @click.ctrl="clearNum"
     >
       <div
@@ -14,6 +14,7 @@
         <i
           class="total_icon cursor-pointer el-icon-sort"
           @click="pageInfo.firstBlue = !pageInfo.firstBlue"
+          @click.right="changeTeam"
         ></i>
         <div
           class="w-30px ml-26px"
@@ -44,7 +45,15 @@
               <div
                 class="select-none cursor-pointer"
                 @click="changeName(row, 'editName1', 'elInputName1')"
-              >{{ row.name1 || 'ID' }}</div>
+              >
+                <span class="relative">
+                  <i
+                    v-if="row.index === 1"
+                    class="text-12px absolute -right-10px top-0px el-icon-star-on text-[#ffa500]"
+                  ></i>
+                  <span>{{ row.name1 || 'ID' }}</span>
+                </span>
+              </div>
             </template>
           </template>
         </el-table-column>
@@ -79,7 +88,15 @@
               <div
                 class="select-none cursor-pointer ml-8px"
                 @click="changeName(row, 'editName2', 'elInputName2')"
-              >{{ row.name2 || 'ID' }}</div>
+              >
+                <span class="relative">
+                  <i
+                    v-if="row.index === 1"
+                    class="text-12px absolute -right-10px top-0px el-icon-star-on text-[#ffa500]"
+                  ></i>
+                  <span>{{ row.name2 || 'ID' }}</span>
+                </span>
+              </div>
             </template>
           </template>
         </el-table-column>
@@ -114,7 +131,7 @@ export default {
   components: { Cell, ScoreItem },
   data () {
     return {
-      psInfo: '今天我入的',
+      psInfo: '今天我和队长入的',
       pageInfo: {
         num1: 0,
         num2: 0,
@@ -122,6 +139,7 @@ export default {
       },
       tableData: [
         {
+          index: 1,
           name1: '',
           editName1: false,
           killNum1: 0,
@@ -140,6 +158,7 @@ export default {
           akNum2Opt: false
         },
         {
+          index: 2,
           name1: '',
           editName1: false,
           killNum1: 0,
@@ -158,6 +177,7 @@ export default {
           akNum2Opt: false
         },
         {
+          index: 3,
           name1: '',
           editName1: false,
           killNum1: 0,
@@ -176,6 +196,7 @@ export default {
           akNum2Opt: false
         },
         {
+          index: 4,
           name1: '',
           editName1: false,
           killNum1: 0,
@@ -216,6 +237,20 @@ export default {
   },
   mounted () { },
   methods: {
+    changeTeam () {
+      [this.pageInfo.num1, this.pageInfo.num2] = [this.pageInfo.num2, this.pageInfo.num1]
+      this.pageInfo.firstBlue = !this.pageInfo.firstBlue
+      this.tableData.forEach(i => {
+        [i.name1, i.name2] = [i.name2, i.name1];
+        [i.editName1, i.editName2] = [i.editName2, i.editName1];
+        [i.killNum1, i.killNum2] = [i.killNum2, i.killNum1];
+        [i.killNum1Opt, i.killNum2Opt] = [i.killNum2Opt, i.killNum1Opt];
+        [i.pingNum1, i.pingNum2] = [i.pingNum2, i.pingNum1];
+        [i.pingNum1Opt, i.pingNum2Opt] = [i.pingNum2Opt, i.pingNum1Opt];
+        [i.akNum1, i.akNum2] = [i.akNum2, i.akNum1];
+        [i.akNum1Opt, i.akNum2Opt] = [i.akNum2Opt, i.akNum1Opt]
+      })
+    },
     clearNum () {
       this.pageInfo = this.$options.data().pageInfo
       this.tableData = this.lodash.cloneDeep(this.$options.data().tableData)
