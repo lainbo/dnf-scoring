@@ -5,10 +5,10 @@
       @click.ctrl="clearNum"
     >
       <div
-        :class="pageInfo.firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'"
+        :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
       >{{ pageInfo.firstBlue ? '蓝队' : '红队' }}</div>
       <div class="flex">
-        <div class="mr-14px" :class="pageInfo.firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">
+        <div class="mr-14px" :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
           <ScoreItem :score="pageInfo.num1" @change-score="changeScore1" />
         </div>
         <i
@@ -18,13 +18,13 @@
         ></i>
         <div
           class="w-30px ml-26px"
-          :class="pageInfo.firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'"
+          :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
         >
           <ScoreItem :score="pageInfo.num2" @change-score="changeScore2" />
         </div>
       </div>
       <div
-        :class="pageInfo.firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'"
+        :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
       >{{ pageInfo.firstBlue ? '红队' : '蓝队' }}</div>
     </div>
     <div class="table_main px-8px">
