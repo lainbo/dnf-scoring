@@ -4,17 +4,27 @@
       class="total_score h-55px flex items-center justify-around text-26px font-bold"
       @click.ctrl="clearNum"
     >
-      <div :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">{{ firstBlue ? '蓝队' : '红队' }}</div>
+      <div
+        :class="pageInfo.firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'"
+      >{{ pageInfo.firstBlue ? '蓝队' : '红队' }}</div>
       <div class="flex">
-        <div class="mr-14px" :class="firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">
+        <div class="mr-14px" :class="pageInfo.firstBlue ? 'text-[#409eff]' : 'text-[#f56c6c]'">
           <ScoreItem :score="pageInfo.num1" @change-score="changeScore1" />
         </div>
-        <i class="total_icon cursor-pointer el-icon-sort" @click="firstBlue = !firstBlue"></i>
-        <div class="w-30px ml-26px" :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'">
+        <i
+          class="total_icon cursor-pointer el-icon-sort"
+          @click="pageInfo.firstBlue = !pageInfo.firstBlue"
+        ></i>
+        <div
+          class="w-30px ml-26px"
+          :class="pageInfo.firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'"
+        >
           <ScoreItem :score="pageInfo.num2" @change-score="changeScore2" />
         </div>
       </div>
-      <div :class="firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'">{{ firstBlue ? '红队' : '蓝队' }}</div>
+      <div
+        :class="pageInfo.firstBlue ? 'text-[#f56c6c]' : 'text-[#409eff]'"
+      >{{ pageInfo.firstBlue ? '红队' : '蓝队' }}</div>
     </div>
     <div class="table_main px-8px">
       <el-table :data="tableData" style="width: 100%" :show-header="false">
@@ -107,9 +117,9 @@ export default {
       psInfo: '今天我入的',
       pageInfo: {
         num1: 0,
-        num2: 0
+        num2: 0,
+        firstBlue: true
       },
-      firstBlue: true,
       tableData: [
         {
           name1: '',
@@ -186,12 +196,29 @@ export default {
       ]
     }
   },
-  created () { },
+  created () {
+    // local的Table数据
+    const LOCAL_TABLE_DATA = JSON.parse(localStorage.getItem('LocalTable') || {})
+
+    // local的比分数据
+    const LOCAL_PAGE_INFO = JSON.parse(localStorage.getItem('LocalPageInfo') || {})
+
+    // 本地响应式数据
+    const ReactivelyTableData = this.lodash.cloneDeep(this.tableData)
+    const ReactivelyPageInfo = this.lodash.cloneDeep(this.pageInfo)
+
+    if (!this.lodash.isEqual(LOCAL_TABLE_DATA, ReactivelyTableData)) {
+      this.tableData = LOCAL_TABLE_DATA
+    }
+    if (!this.lodash.isEqual(LOCAL_PAGE_INFO, ReactivelyPageInfo)) {
+      this.pageInfo = LOCAL_PAGE_INFO
+    }
+  },
   mounted () { },
   methods: {
     clearNum () {
       this.pageInfo = this.$options.data().pageInfo
-      this.tableData = JSON.parse(JSON.stringify(this.$options.data().tableData))
+      this.tableData = this.lodash.cloneDeep(this.$options.data().tableData)
     },
     // 更改右侧的分数
     changeScore2 (data, operate) {
@@ -223,7 +250,20 @@ export default {
     }
   },
   computed: {},
-  watch: {}
+  watch: {
+    tableData: {
+      handler (val) {
+        localStorage.setItem('LocalTable', JSON.stringify(val))
+      },
+      deep: true
+    },
+    pageInfo: {
+      handler (val) {
+        localStorage.setItem('LocalPageInfo', JSON.stringify(val))
+      },
+      deep: true
+    }
+  }
 }
 </script>
 
