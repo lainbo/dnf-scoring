@@ -34,7 +34,7 @@
               <div
                 class="select-none cursor-pointer"
                 @click="changeName(row, 'editName1', 'elInputName1')"
-              >{{ row.name1 }}</div>
+              >{{ row.name1 || 'ID' }}</div>
             </template>
           </template>
         </el-table-column>
@@ -69,7 +69,7 @@
               <div
                 class="select-none cursor-pointer ml-8px"
                 @click="changeName(row, 'editName2', 'elInputName2')"
-              >{{ row.name2 }}</div>
+              >{{ row.name2 || 'ID' }}</div>
             </template>
           </template>
         </el-table-column>
@@ -112,7 +112,7 @@ export default {
       firstBlue: true,
       tableData: [
         {
-          name1: 'ID',
+          name1: '',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -120,7 +120,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: 'ID',
+          name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -130,7 +130,7 @@ export default {
           akNum2Opt: false
         },
         {
-          name1: 'ID',
+          name1: '',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -138,7 +138,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: 'ID',
+          name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -148,7 +148,7 @@ export default {
           akNum2Opt: false
         },
         {
-          name1: 'ID',
+          name1: '',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -156,7 +156,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: 'ID',
+          name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -166,7 +166,7 @@ export default {
           akNum2Opt: false
         },
         {
-          name1: 'ID',
+          name1: '',
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
@@ -174,7 +174,7 @@ export default {
           pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
-          name2: 'ID',
+          name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
@@ -191,19 +191,7 @@ export default {
   methods: {
     clearNum () {
       this.pageInfo = this.$options.data().pageInfo
-      this.tableData.forEach((i) => {
-        const arr = [
-          'killNum1',
-          'pingNum1',
-          'akNum1',
-          'killNum2',
-          'pingNum2',
-          'akNum2'
-        ]
-        arr.forEach((j) => {
-          i[j] = 0
-        })
-      })
+      this.tableData = JSON.parse(JSON.stringify(this.$options.data().tableData))
     },
     // 更改右侧的分数
     changeScore2 (data, operate) {
