@@ -63,11 +63,11 @@ export default {
       const afterAddNum = row[field] + 1
       const afterSubtractNum = row[field] - 1
       if (afterAddNum > 99 && operate === 'add') {
-        this.$message.error('咋可能这么多？')
+        this.$message.error({ message: '咋可能这么多？', duration: 800 })
         return
       }
       if (afterSubtractNum < 0 && operate === 'subtract') {
-        this.$message.error('到0了，别点了')
+        this.$message.error({ message: '到0了，别点了', duration: 800 })
         return
       }
       row[field] = operate === 'add' ? row[field] + 1 : row[field] - 1

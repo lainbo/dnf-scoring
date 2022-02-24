@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="flex items-center"
-    @mouseenter="scoreIn = true"
-    @mouseleave="scoreIn = false"
-  >
+  <div class="flex items-center" @mouseenter="scoreIn = true" @mouseleave="scoreIn = false">
     <div>{{ score }}</div>
     <div
       :style="{ visibility: scoreIn ? 'visible' : 'hidden' }"
@@ -34,13 +30,13 @@ export default {
       scoreIn: false
     }
   },
-  created () {},
-  mounted () {},
+  created () { },
+  mounted () { },
   methods: {
     changeScore (operate) {
       const afterSubtractNum = this.score - 1
       if (afterSubtractNum < 0 && operate === 'subtract') {
-        return this.$message.error('到0了，别点了')
+        return this.$message.error({ message: '到0了，别点了', duration: 800 })
       }
       this.$emit('change-score', this.score, operate)
     }
