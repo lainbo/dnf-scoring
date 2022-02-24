@@ -331,7 +331,7 @@ export default {
       line-height: 2.2;
       padding: 0 !important;
       font-size: 24px;
-      color: #333;
+      color: #000;
       font-weight: bold;
     }
   }
