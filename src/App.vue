@@ -4,11 +4,14 @@
       class="total_score h-55px flex items-center justify-around text-26px font-bold px-10px"
       @click.ctrl="clearNum"
     >
-      <div
-        :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
-      >{{ pageInfo.firstBlue ? '蓝队' : '红队' }}</div>
+      <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
+        {{ pageInfo.firstBlue ? '蓝队' : '红队' }}
+      </div>
       <div class="flex">
-        <div class="mr-14px" :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
+        <div
+          class="mr-14px"
+          :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
+        >
           <ScoreItem :score="pageInfo.num1" @change-score="changeScore1" />
         </div>
         <i
@@ -23,9 +26,9 @@
           <ScoreItem :score="pageInfo.num2" @change-score="changeScore2" />
         </div>
       </div>
-      <div
-        :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
-      >{{ pageInfo.firstBlue ? '红队' : '蓝队' }}</div>
+      <div :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'">
+        {{ pageInfo.firstBlue ? '红队' : '蓝队' }}
+      </div>
     </div>
     <div class="table_main px-8px">
       <el-table :data="tableData" style="width: 100%" :show-header="false">
@@ -120,7 +123,9 @@
     <div
       class="h-70px text-24px font-bold text-center pt-8px leading-28px"
       contenteditable="true"
-    >{{ psInfo }}</div>
+    >
+      {{ psInfo }}
+    </div>
   </div>
 </template>
 
@@ -218,15 +223,20 @@ export default {
     }
   },
   created () {
-    // local的Table数据
-    const LOCAL_TABLE_DATA = JSON.parse(localStorage.getItem('LocalTable') || {})
-
-    // local的比分数据
-    const LOCAL_PAGE_INFO = JSON.parse(localStorage.getItem('LocalPageInfo') || {})
-
     // 本地响应式数据
     const ReactivelyTableData = this.lodash.cloneDeep(this.tableData)
     const ReactivelyPageInfo = this.lodash.cloneDeep(this.pageInfo)
+
+    // local的Table数据
+    const LOCAL_TABLE_DATA = JSON.parse(
+      localStorage.getItem('LocalTable') || JSON.stringify(ReactivelyTableData)
+    )
+
+    // local的比分数据
+    const LOCAL_PAGE_INFO = JSON.parse(
+      localStorage.getItem('LocalPageInfo') ||
+        JSON.stringify(ReactivelyPageInfo)
+    )
 
     if (!this.lodash.isEqual(LOCAL_TABLE_DATA, ReactivelyTableData)) {
       this.tableData = LOCAL_TABLE_DATA
@@ -235,20 +245,23 @@ export default {
       this.pageInfo = LOCAL_PAGE_INFO
     }
   },
-  mounted () { },
+  mounted () {},
   methods: {
     changeTeam () {
-      [this.pageInfo.num1, this.pageInfo.num2] = [this.pageInfo.num2, this.pageInfo.num1]
+      ;[this.pageInfo.num1, this.pageInfo.num2] = [
+        this.pageInfo.num2,
+        this.pageInfo.num1
+      ]
       this.pageInfo.firstBlue = !this.pageInfo.firstBlue
-      this.tableData.forEach(i => {
-        [i.name1, i.name2] = [i.name2, i.name1];
-        [i.editName1, i.editName2] = [i.editName2, i.editName1];
-        [i.killNum1, i.killNum2] = [i.killNum2, i.killNum1];
-        [i.killNum1Opt, i.killNum2Opt] = [i.killNum2Opt, i.killNum1Opt];
-        [i.pingNum1, i.pingNum2] = [i.pingNum2, i.pingNum1];
-        [i.pingNum1Opt, i.pingNum2Opt] = [i.pingNum2Opt, i.pingNum1Opt];
-        [i.akNum1, i.akNum2] = [i.akNum2, i.akNum1];
-        [i.akNum1Opt, i.akNum2Opt] = [i.akNum2Opt, i.akNum1Opt]
+      this.tableData.forEach((i) => {
+        ;[i.name1, i.name2] = [i.name2, i.name1]
+        ;[i.editName1, i.editName2] = [i.editName2, i.editName1]
+        ;[i.killNum1, i.killNum2] = [i.killNum2, i.killNum1]
+        ;[i.killNum1Opt, i.killNum2Opt] = [i.killNum2Opt, i.killNum1Opt]
+        ;[i.pingNum1, i.pingNum2] = [i.pingNum2, i.pingNum1]
+        ;[i.pingNum1Opt, i.pingNum2Opt] = [i.pingNum2Opt, i.pingNum1Opt]
+        ;[i.akNum1, i.akNum2] = [i.akNum2, i.akNum1]
+        ;[i.akNum1Opt, i.akNum2Opt] = [i.akNum2Opt, i.akNum1Opt]
       })
     },
     clearNum () {
