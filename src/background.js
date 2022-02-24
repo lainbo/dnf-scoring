@@ -27,8 +27,7 @@ async function createWindow () {
     }
   })
   win.setMenu(null)
-  win.setAlwaysOnTop(true, 'normal')
-  // win.moveTop()
+  win.setAlwaysOnTop(true, 'screen-saver')
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
