@@ -30,9 +30,9 @@
         {{ pageInfo.firstBlue ? '红队' : '蓝队' }}
       </div>
     </div>
-    <div class="table_main px-8px">
+    <div class="table_main px-4px">
       <el-table :data="tableData" style="width: 100%" :show-header="false">
-        <el-table-column prop="name1" label="ID" min-width="60">
+        <el-table-column prop="name1" label="ID" min-width="56">
           <template v-slot="{ row }">
             <template v-if="row.editName1">
               <el-input
@@ -89,7 +89,7 @@
 
             <template v-else>
               <div
-                class="select-none cursor-pointer ml-8px"
+                class="select-none cursor-pointer ml-4px"
                 @click="changeName(row, 'editName2', 'elInputName2')"
               >
                 <span class="relative">
@@ -123,9 +123,9 @@
     <div
       class="h-70px text-24px font-bold text-center pt-8px leading-28px"
       contenteditable="true"
-    >
-      {{ psInfo }}
-    </div>
+      v-html="pageInfo.psInfo"
+      @blur="changePs($event)"
+    ></div>
   </div>
 </template>
 
@@ -136,8 +136,8 @@ export default {
   components: { Cell, ScoreItem },
   data () {
     return {
-      psInfo: '今天我和队长入的',
       pageInfo: {
+        psInfo: '今天我和队长入的',
         num1: 0,
         num2: 0,
         firstBlue: true
@@ -239,14 +239,20 @@ export default {
     )
 
     if (!this.lodash.isEqual(LOCAL_TABLE_DATA, ReactivelyTableData)) {
-      this.tableData = LOCAL_TABLE_DATA
+      this.lodash.merge(this.tableData, LOCAL_TABLE_DATA)
     }
     if (!this.lodash.isEqual(LOCAL_PAGE_INFO, ReactivelyPageInfo)) {
-      this.pageInfo = LOCAL_PAGE_INFO
+      this.lodash.merge(this.pageInfo, LOCAL_PAGE_INFO)
     }
   },
   mounted () {},
   methods: {
+    // 变更底部信息
+    changePs (e) {
+      const text = e.target.innerText.replaceAll('\n', '<br/>')
+      this.pageInfo.psInfo = text
+    },
+    // 右键切换数据
     changeTeam () {
       ;[this.pageInfo.num1, this.pageInfo.num2] = [
         this.pageInfo.num2,
@@ -264,6 +270,7 @@ export default {
         ;[i.akNum1Opt, i.akNum2Opt] = [i.akNum2Opt, i.akNum1Opt]
       })
     },
+    // 恢复初始数据
     clearNum () {
       this.pageInfo = this.$options.data().pageInfo
       this.tableData = this.lodash.cloneDeep(this.$options.data().tableData)
