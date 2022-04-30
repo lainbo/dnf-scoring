@@ -8,18 +8,18 @@
       <template v-if="hasAdd && row[field] > 0">+</template>
       <template v-else-if="hasA && row[field] > 0">A</template>
       <span v-if="['killNum1', 'killNum2'].includes(field)">{{ row[field] }}</span>
-      <span v-else>{{ calcNum(row) }}</span>
+      <span v-else :class="calcRed(row)">{{ calcNum(row) }}</span>
     </div>
     <div
       class="flex flex-col justify-center space-y-1 absolute right-0 top-1/2 transform -translate-y-1/2"
       v-if="row[`${field}Opt`]"
     >
       <i
-        class="text-14px cursor-pointer text-[#67C23A] el-icon-circle-plus"
+        class="text-14px cursor-pointer text-[#00b42a] el-icon-circle-plus"
         @click="changeNum(row, field, 'add')"
       ></i>
       <i
-        class="text-14px cursor-pointer text-[#F56C6C] el-icon-remove"
+        class="text-14px cursor-pointer text-[#f53f3f] el-icon-remove"
         @click="changeNum(row, field, 'subtract')"
       ></i>
     </div>
@@ -50,6 +50,14 @@ export default {
   created () { },
   mounted () { },
   methods: {
+    calcRed (row) {
+      const num = parseInt(row[this.field])
+      if (num > 1) {
+        return 'text-[#f53f3f]'
+      } else {
+        return ''
+      }
+    },
     calcNum (row) {
       if (row[this.field] === 0) {
         return '-'
@@ -62,6 +70,10 @@ export default {
     changeNum (row, field, operate) {
       const afterAddNum = row[field] + 1
       const afterSubtractNum = row[field] - 1
+      if (['akNum1', 'akNum2', 'pingNum1', 'pingNum2'].includes(field) && operate === 'add' && afterAddNum > 9) {
+        this.$message.error({ message: '咋可能这么多？', duration: 800 })
+        return
+      }
       if (afterAddNum > 99 && operate === 'add') {
         this.$message.error({ message: '咋可能这么多？', duration: 800 })
         return

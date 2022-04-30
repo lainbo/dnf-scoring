@@ -6,11 +6,11 @@
       class="flex flex-col justify-center space-y-1"
     >
       <i
-        class="text-14px cursor-pointer text-[#67C23A] el-icon-circle-plus"
+        class="text-14px cursor-pointer text-[#00b42a] el-icon-circle-plus"
         @click="changeScore('add')"
       ></i>
       <i
-        class="text-14px cursor-pointer text-[#F56C6C] el-icon-remove"
+        class="text-14px cursor-pointer text-[#f53f3f] el-icon-remove"
         @click="changeScore('subtract')"
       ></i>
     </div>

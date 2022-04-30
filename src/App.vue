@@ -37,7 +37,7 @@
             <template v-if="row.editName1">
               <el-input
                 ref="elInputName1"
-                maxlength="2"
+                maxlength="3"
                 @blur="row.editName1 = false"
                 @keyup.enter.native="row.editName1 = false"
                 v-model="row.name1"
@@ -52,9 +52,9 @@
                 <span class="relative">
                   <i
                     v-if="row.index === 1"
-                    class="text-12px absolute -right-10px top-0px el-icon-star-on text-[#ffa500]"
-                  ></i>
-                  <span>{{ row.name1 || 'ID' }}</span>
+                    class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
+                  />
+                  <span :class="[row.name1.length===3?'text-[19.5px]':'text-[24px]']">{{ row.name1 || 'ID' }}</span>
                 </span>
               </div>
             </template>
@@ -80,7 +80,7 @@
             <template v-if="row.editName2">
               <el-input
                 ref="elInputName2"
-                maxlength="2"
+                maxlength="3"
                 @blur="row.editName2 = false"
                 @keyup.enter.native="row.editName2 = false"
                 v-model="row.name2"
@@ -89,15 +89,15 @@
 
             <template v-else>
               <div
-                class="select-none cursor-pointer ml-4px"
+                class="select-none cursor-pointer ml-4px "
                 @click="changeName(row, 'editName2', 'elInputName2')"
               >
                 <span class="relative">
                   <i
                     v-if="row.index === 1"
-                    class="text-12px absolute -right-10px top-0px el-icon-star-on text-[#ffa500]"
-                  ></i>
-                  <span>{{ row.name2 || 'ID' }}</span>
+                    class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
+                  />
+                  <span :class="[row.name2.length === 3?'text-[19.5px]':'text-[24px]']">{{ row.name2 || 'ID' }}</span>
                 </span>
               </div>
             </template>
@@ -334,12 +334,17 @@ export default {
     .el-table__cell {
       padding: 0;
     }
+    .el-input__inner {
+      padding: 0 5px;
+    }
     .cell {
+      overflow: visible;
       line-height: 2.2;
       padding: 0 !important;
       font-size: 24px;
       color: #000;
       font-weight: bold;
+      // position: relative;
     }
   }
 }
