@@ -54,7 +54,7 @@
                     v-if="row.index === 1"
                     class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
                   />
-                  <span :class="[row.name1.length===3?'text-[19.5px]':'text-[24px]']">{{ row.name1 || 'ID' }}</span>
+                  <span :class="[row.name1.length >= 3?'text-[19.5px]':'text-[24px]']">{{ row.name1 || 'ID' }}</span>
                 </span>
               </div>
             </template>
@@ -97,7 +97,7 @@
                     v-if="row.index === 1"
                     class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
                   />
-                  <span :class="[row.name2.length === 3?'text-[19.5px]':'text-[24px]']">{{ row.name2 || 'ID' }}</span>
+                  <span :class="[row.name2.length >= 3?'text-[19.5px]':'text-[24px]']">{{ row.name2 || 'ID' }}</span>
                 </span>
               </div>
             </template>
