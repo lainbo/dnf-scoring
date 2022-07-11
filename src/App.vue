@@ -37,7 +37,7 @@
             <template v-if="row.editName1">
               <el-input
                 ref="elInputName1"
-                maxlength="3"
+                maxlength="4"
                 @blur="row.editName1 = false"
                 @keyup.enter.native="row.editName1 = false"
                 v-model="row.name1"
@@ -54,7 +54,7 @@
                     v-if="row.index === 1"
                     class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
                   />
-                  <span :class="[row.name1.length >= 3?'text-[19.5px]':'text-[24px]']">{{ row.name1 || 'ID' }}</span>
+                  <span class="text-24px">{{ row.name1 || 'ID' }}</span>
                 </span>
               </div>
             </template>
@@ -70,17 +70,12 @@
             <Cell hasA :row="row" field="akNum1" />
           </template>
         </el-table-column>
-        <el-table-column prop="pingNum1" label="卡" width="50" align="center">
-          <template v-slot="{ row }">
-            <Cell hasAdd :row="row" field="pingNum1" />
-          </template>
-        </el-table-column>
         <el-table-column prop="name2" label="ID" min-width="60">
           <template v-slot="{ row }">
             <template v-if="row.editName2">
               <el-input
                 ref="elInputName2"
-                maxlength="3"
+                maxlength="4"
                 @blur="row.editName2 = false"
                 @keyup.enter.native="row.editName2 = false"
                 v-model="row.name2"
@@ -97,13 +92,13 @@
                     v-if="row.index === 1"
                     class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
                   />
-                  <span :class="[row.name2.length >= 3?'text-[19.5px]':'text-[24px]']">{{ row.name2 || 'ID' }}</span>
+                  <span class="text-24px">{{ row.name2 || 'ID' }}</span>
                 </span>
               </div>
             </template>
           </template>
         </el-table-column>
-        <el-table-column prop="killNum2" label="Kill" width="50" align="center">
+        <el-table-column prop="killNum2" label="Kill" width="55" align="center">
           <template v-slot="{ row }">
             <Cell :row="row" field="killNum2" />
           </template>
@@ -113,15 +108,10 @@
             <Cell hasA :row="row" field="akNum2" />
           </template>
         </el-table-column>
-        <el-table-column prop="pingNum2" label="卡" width="50" align="center">
-          <template v-slot="{ row }">
-            <Cell hasAdd :row="row" field="pingNum2" />
-          </template>
-        </el-table-column>
       </el-table>
     </div>
     <div
-      class="h-70px text-24px font-bold text-center pt-8px leading-28px"
+      class="h-70px text-24px font-bold text-center pt-8px leading-28px outline-none"
       contenteditable="true"
       v-html="pageInfo.psInfo"
       @blur="changePs($event)"
@@ -149,16 +139,12 @@ export default {
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
-          pingNum1: 0,
-          pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
-          pingNum2: 0,
-          pingNum2Opt: false,
           akNum2: 0,
           akNum2Opt: false
         },
@@ -168,16 +154,12 @@ export default {
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
-          pingNum1: 0,
-          pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
-          pingNum2: 0,
-          pingNum2Opt: false,
           akNum2: 0,
           akNum2Opt: false
         },
@@ -187,16 +169,12 @@ export default {
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
-          pingNum1: 0,
-          pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
-          pingNum2: 0,
-          pingNum2Opt: false,
           akNum2: 0,
           akNum2Opt: false
         },
@@ -206,16 +184,12 @@ export default {
           editName1: false,
           killNum1: 0,
           killNum1Opt: false,
-          pingNum1: 0,
-          pingNum1Opt: false,
           akNum1: 0,
           akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
           killNum2Opt: false,
-          pingNum2: 0,
-          pingNum2Opt: false,
           akNum2: 0,
           akNum2Opt: false
         }
@@ -264,8 +238,6 @@ export default {
         ;[i.editName1, i.editName2] = [i.editName2, i.editName1]
         ;[i.killNum1, i.killNum2] = [i.killNum2, i.killNum1]
         ;[i.killNum1Opt, i.killNum2Opt] = [i.killNum2Opt, i.killNum1Opt]
-        ;[i.pingNum1, i.pingNum2] = [i.pingNum2, i.pingNum1]
-        ;[i.pingNum1Opt, i.pingNum2Opt] = [i.pingNum2Opt, i.pingNum1Opt]
         ;[i.akNum1, i.akNum2] = [i.akNum2, i.akNum1]
         ;[i.akNum1Opt, i.akNum2Opt] = [i.akNum2Opt, i.akNum1Opt]
       })

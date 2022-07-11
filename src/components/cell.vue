@@ -5,8 +5,7 @@
     @mouseleave="row[`${field}Opt`] = false"
   >
     <div class="w-50px transition-all mr-8px">
-      <template v-if="hasAdd && row[field] > 0">+</template>
-      <template v-else-if="hasA && row[field] > 0">A</template>
+      <template v-if="hasA && row[field] > 0">A</template>
       <span v-if="['killNum1', 'killNum2'].includes(field)">{{ row[field] }}</span>
       <span v-else :class="calcRed(row)">{{ calcNum(row) }}</span>
     </div>
@@ -30,10 +29,6 @@
 export default {
   props: {
     hasA: {
-      type: Boolean,
-      default: false
-    },
-    hasAdd: {
       type: Boolean,
       default: false
     },
@@ -70,7 +65,7 @@ export default {
     changeNum (row, field, operate) {
       const afterAddNum = row[field] + 1
       const afterSubtractNum = row[field] - 1
-      if (['akNum1', 'akNum2', 'pingNum1', 'pingNum2'].includes(field) && operate === 'add' && afterAddNum > 9) {
+      if (['akNum1', 'akNum2'].includes(field) && operate === 'add' && afterAddNum > 9) {
         this.$message.error({ message: '咋可能这么多？', duration: 800 })
         return
       }
