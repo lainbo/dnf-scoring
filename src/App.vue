@@ -60,7 +60,7 @@
             </template>
           </template>
         </el-table-column>
-        <el-table-column prop="killNum1" label="Kill" width="50" align="center">
+        <el-table-column prop="killNum1" label="Kill" width="60" align="center">
           <template v-slot="{ row }">
             <Cell :row="row" field="killNum1" />
           </template>
@@ -98,7 +98,7 @@
             </template>
           </template>
         </el-table-column>
-        <el-table-column prop="killNum2" label="Kill" width="55" align="center">
+        <el-table-column prop="killNum2" label="Kill" width="60" align="center">
           <template v-slot="{ row }">
             <Cell :row="row" field="killNum2" />
           </template>

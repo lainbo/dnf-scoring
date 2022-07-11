@@ -14,11 +14,11 @@
       v-if="row[`${field}Opt`]"
     >
       <i
-        class="text-14px cursor-pointer text-[#00b42a] el-icon-circle-plus"
+        class="text-16px cursor-pointer text-[#00b42a] el-icon-circle-plus"
         @click="changeNum(row, field, 'add')"
       ></i>
       <i
-        class="text-14px cursor-pointer text-[#f53f3f] el-icon-remove"
+        class="text-16px cursor-pointer text-[#f00] el-icon-remove"
         @click="changeNum(row, field, 'subtract')"
       ></i>
     </div>
