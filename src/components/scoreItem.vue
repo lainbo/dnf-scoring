@@ -1,16 +1,15 @@
 <template>
-  <div class="flex items-center" @mouseenter="scoreIn = true" @mouseleave="scoreIn = false">
+  <div class="score_item flex items-center">
     <div>{{ score }}</div>
     <div
-      :style="{ visibility: scoreIn ? 'visible' : 'hidden' }"
-      class="flex flex-col justify-center space-y-1"
+      class="operation_item flex flex-col justify-center space-y-1 invisible"
     >
       <i
-        class="text-16px cursor-pointer text-[#00b42a] el-icon-circle-plus"
+        class="text-16px cursor-pointer text-[#00b42a] el-icon-circle-plus plus"
         @click="changeScore('add')"
       ></i>
       <i
-        class="text-16px cursor-pointer text-[#f00] el-icon-remove"
+        class="text-16px cursor-pointer text-[#f00] el-icon-remove minus"
         @click="changeScore('subtract')"
       ></i>
     </div>
@@ -30,8 +29,8 @@ export default {
       scoreIn: false
     }
   },
-  created () { },
-  mounted () { },
+  created () {},
+  mounted () {},
   methods: {
     changeScore (operate) {
       const afterSubtractNum = this.score - 1
@@ -46,4 +45,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.score_item {
+  &:hover {
+    .operation_item {
+      visibility: visible !important;
+    }
+  }
+}
+</style>

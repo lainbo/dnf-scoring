@@ -138,60 +138,44 @@ export default {
           name1: '',
           editName1: false,
           killNum1: 0,
-          killNum1Opt: false,
           akNum1: 0,
-          akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
-          killNum2Opt: false,
-          akNum2: 0,
-          akNum2Opt: false
+          akNum2: 0
         },
         {
           index: 2,
           name1: '',
           editName1: false,
           killNum1: 0,
-          killNum1Opt: false,
           akNum1: 0,
-          akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
-          killNum2Opt: false,
-          akNum2: 0,
-          akNum2Opt: false
+          akNum2: 0
         },
         {
           index: 3,
           name1: '',
           editName1: false,
           killNum1: 0,
-          killNum1Opt: false,
           akNum1: 0,
-          akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
-          killNum2Opt: false,
-          akNum2: 0,
-          akNum2Opt: false
+          akNum2: 0
         },
         {
           index: 4,
           name1: '',
           editName1: false,
           killNum1: 0,
-          killNum1Opt: false,
           akNum1: 0,
-          akNum1Opt: false,
           name2: '',
           editName2: false,
           killNum2: 0,
-          killNum2Opt: false,
-          akNum2: 0,
-          akNum2Opt: false
+          akNum2: 0
         }
       ]
     }
@@ -237,9 +221,7 @@ export default {
         ;[i.name1, i.name2] = [i.name2, i.name1]
         ;[i.editName1, i.editName2] = [i.editName2, i.editName1]
         ;[i.killNum1, i.killNum2] = [i.killNum2, i.killNum1]
-        ;[i.killNum1Opt, i.killNum2Opt] = [i.killNum2Opt, i.killNum1Opt]
         ;[i.akNum1, i.akNum2] = [i.akNum2, i.akNum1]
-        ;[i.akNum1Opt, i.akNum2Opt] = [i.akNum2Opt, i.akNum1Opt]
       })
     },
     // 恢复初始数据

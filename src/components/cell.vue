@@ -1,24 +1,21 @@
 <template>
-  <div
-    class="flex relative"
-    @mouseenter="row[`${field}Opt`] = true"
-    @mouseleave="row[`${field}Opt`] = false"
-  >
+  <div class="flex relative cell_item">
     <div class="w-50px transition-all mr-8px">
       <template v-if="hasA && row[field] > 0">A</template>
-      <span v-if="['killNum1', 'killNum2'].includes(field)">{{ row[field] }}</span>
+      <span v-if="['killNum1', 'killNum2'].includes(field)">
+        {{ row[field] }}
+      </span>
       <span v-else :class="calcRed(row)">{{ calcNum(row) }}</span>
     </div>
     <div
-      class="flex flex-col justify-center space-y-1 absolute right-0 top-1/2 transform -translate-y-1/2"
-      v-if="row[`${field}Opt`]"
+      class="operation_item flex flex-col justify-center space-y-1 absolute right-0 top-1/2 transform -translate-y-1/2 invisible"
     >
       <i
-        class="text-16px cursor-pointer text-[#00b42a] el-icon-circle-plus"
+        class="text-16px cursor-pointer text-[#00b42a] el-icon-circle-plus plus"
         @click="changeNum(row, field, 'add')"
       ></i>
       <i
-        class="text-16px cursor-pointer text-[#f00] el-icon-remove"
+        class="text-16px cursor-pointer text-[#f00] el-icon-remove minus"
         @click="changeNum(row, field, 'subtract')"
       ></i>
     </div>
@@ -42,8 +39,8 @@ export default {
   data () {
     return {}
   },
-  created () { },
-  mounted () { },
+  created () {},
+  mounted () {},
   methods: {
     calcRed (row) {
       const num = parseInt(row[this.field])
@@ -57,15 +54,17 @@ export default {
       if (row[this.field] === 0) {
         return '-'
       } else {
-        return row[this.field] === 1 && this.hasA
-          ? '+'
-          : row[this.field]
+        return row[this.field] === 1 && this.hasA ? '+' : row[this.field]
       }
     },
     changeNum (row, field, operate) {
       const afterAddNum = row[field] + 1
       const afterSubtractNum = row[field] - 1
-      if (['akNum1', 'akNum2'].includes(field) && operate === 'add' && afterAddNum > 9) {
+      if (
+        ['akNum1', 'akNum2'].includes(field) &&
+        operate === 'add' &&
+        afterAddNum > 9
+      ) {
         this.$message.error({ message: '咋可能这么多？', duration: 800 })
         return
       }
@@ -85,4 +84,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.cell_item {
+  &:hover {
+    .operation_item {
+      visibility: visible !important;
+    }
+  }
+}
+</style>

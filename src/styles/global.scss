@@ -76,3 +76,14 @@ body,
 ::-webkit-scrollbar-thumb:hover {
   background: #b6b7b9;
 }
+
+.plus,
+.minus {
+  transition: transform 0.15s ease;
+  transform-origin: 50% 50%;
+
+  &:active {
+    transform: scale(1.2);
+    filter: brightness(0.9);
+  }
+}
