@@ -1,5 +1,5 @@
 <template>
-  <div class>
+  <div>
     <div
       class="total_score h-55px flex items-center justify-around text-26px font-bold px-10px"
       @click.ctrl="clearNum"
@@ -84,7 +84,7 @@
 
             <template v-else>
               <div
-                class="select-none cursor-pointer ml-4px "
+                class="select-none cursor-pointer ml-4px"
                 @click="changeName(row, 'editName2', 'elInputName2')"
               >
                 <span class="relative">
