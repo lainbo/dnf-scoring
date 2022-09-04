@@ -127,7 +127,7 @@ export default {
   data () {
     return {
       pageInfo: {
-        psInfo: '今天我和队长入的',
+        psInfo: '今天我和队长看好<br />老群GG了, 大家加新群: 913958545',
         num1: 0,
         num2: 0,
         firstBlue: true
