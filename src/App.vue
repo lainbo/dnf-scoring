@@ -7,20 +7,37 @@
       <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
         {{ pageInfo.firstBlue ? '蓝队' : '红队' }}
       </div>
-      <div class="flex">
+      <div class="flex h-full">
         <div
-          class="mr-14px"
+          class="mr-14px flex items-center"
           :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
         >
           <ScoreItem :score="pageInfo.num1" @change-score="changeScore1" />
         </div>
-        <i
-          class="total_icon cursor-pointer el-icon-sort"
-          @click="pageInfo.firstBlue = !pageInfo.firstBlue"
-          @click.right="changeTeam"
-        ></i>
         <div
-          class="w-30px ml-26px"
+          class="flex flex-col justify-center w-28px"
+          @mouseenter="小分按钮vis = true"
+          @mouseleave="小分按钮vis = false"
+        >
+          <p>
+            <i
+              class="total_icon cursor-pointer el-icon-sort transition-all text-24px hover:text-[#00b42a]"
+              @click="pageInfo.firstBlue = !pageInfo.firstBlue"
+              @click.right="changeTeam"
+            ></i>
+          </p>
+          <el-collapse-transition>
+            <p
+              v-show="小分按钮vis"
+              class="text-14px mt-6px cursor-pointer select-none hover:text-[#cd1803]"
+              @click="小分vis = !小分vis"
+            >
+              小分
+            </p>
+          </el-collapse-transition>
+        </div>
+        <div
+          class="w-30px ml-20px flex items-center"
           :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
         >
           <ScoreItem :score="pageInfo.num2" @change-score="changeScore2" />
@@ -30,6 +47,43 @@
         {{ pageInfo.firstBlue ? '红队' : '蓝队' }}
       </div>
     </div>
+
+    <!-- start：小分部分 -->
+    <el-collapse-transition>
+      <div
+        v-show="小分vis"
+        class="total_score h-45px flex items-center justify-around text-22px font-bold px-10px transition-all duration-300"
+        @click.ctrl="clearSmallNum"
+      >
+        <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
+          {{ pageInfo.firstBlue ? '蓝队小分' : '红队小分' }}
+        </div>
+        <div class="flex h-full">
+          <div
+            class="mr-14px flex items-center"
+            :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
+          >
+            <ScoreItem
+              :score="smallInfo.smallNum1"
+              @change-score="changeSmallScore1"
+            />
+          </div>
+          <p class="flex items-center text-center">:</p>
+          <div
+            class="w-30px ml-26px flex items-center"
+            :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
+          >
+            <ScoreItem
+              :score="smallInfo.smallNum2"
+              @change-score="changeSmallScore2"
+            />
+          </div>
+        </div>
+        <div :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'">
+          {{ pageInfo.firstBlue ? '红队小分' : '蓝队小分' }}
+        </div>
+      </div>
+    </el-collapse-transition>
     <div class="table_main px-4px">
       <el-table :data="tableData" style="width: 100%" :show-header="false">
         <el-table-column prop="name1" label="ID" min-width="56">
@@ -113,7 +167,8 @@
     <div
       class="h-70px text-24px font-bold text-center pt-8px leading-28px outline-none"
       contenteditable="true"
-      v-html="pageInfo.psInfo"
+      v-html="bottomInfo"
+      @click.ctrl="clearBottomInfo"
       @blur="changePs($event)"
     ></div>
   </div>
@@ -126,12 +181,18 @@ export default {
   components: { Cell, ScoreItem },
   data () {
     return {
+      小分按钮vis: false,
+      小分vis: false,
       pageInfo: {
-        psInfo: '今天我和队长看好<br />老群GG了, 大家加新群: 913958545',
         num1: 0,
         num2: 0,
         firstBlue: true
       },
+      smallInfo: {
+        smallNum1: 0,
+        smallNum2: 0
+      },
+      bottomInfo: '今天我和队长看好<br />老群GG了, 大家加新群: 913958545',
       tableData: [
         {
           index: 1,
@@ -196,11 +257,17 @@ export default {
         JSON.stringify(ReactivelyPageInfo)
     )
 
+    // local的底部信息
+    const LOCAL_BOTTOM_INFO = localStorage.getItem('LocalBottomInfo') || ''
+
     if (!this.lodash.isEqual(LOCAL_TABLE_DATA, ReactivelyTableData)) {
       this.lodash.merge(this.tableData, LOCAL_TABLE_DATA)
     }
     if (!this.lodash.isEqual(LOCAL_PAGE_INFO, ReactivelyPageInfo)) {
       this.lodash.merge(this.pageInfo, LOCAL_PAGE_INFO)
+    }
+    if (LOCAL_BOTTOM_INFO) {
+      this.bottomInfo = LOCAL_BOTTOM_INFO
     }
   },
   mounted () {},
@@ -208,15 +275,19 @@ export default {
     // 变更底部信息
     changePs (e) {
       const text = e.target.innerText.replaceAll('\n', '<br/>')
-      this.pageInfo.psInfo = text
+      this.bottomInfo = text
     },
     // 右键切换数据
     changeTeam () {
+      this.pageInfo.firstBlue = !this.pageInfo.firstBlue
       ;[this.pageInfo.num1, this.pageInfo.num2] = [
         this.pageInfo.num2,
         this.pageInfo.num1
       ]
-      this.pageInfo.firstBlue = !this.pageInfo.firstBlue
+      ;[this.smallInfo.smallNum1, this.smallInfo.smallNum2] = [
+        this.smallInfo.smallNum2,
+        this.smallInfo.smallNum1
+      ]
       this.tableData.forEach((i) => {
         ;[i.name1, i.name2] = [i.name2, i.name1]
         ;[i.editName1, i.editName2] = [i.editName2, i.editName1]
@@ -226,8 +297,15 @@ export default {
     },
     // 恢复初始数据
     clearNum () {
-      this.pageInfo = this.$options.data().pageInfo
+      this.pageInfo = this.lodash.cloneDeep(this.$options.data().pageInfo)
       this.tableData = this.lodash.cloneDeep(this.$options.data().tableData)
+    },
+    clearSmallNum () {
+      this.smallInfo = this.lodash.cloneDeep(this.$options.data().smallInfo)
+    },
+    // 恢复底部信息
+    clearBottomInfo () {
+      this.bottomInfo = this.$options.data().bottomInfo
     },
     // 更改右侧的分数
     changeScore2 (data, operate) {
@@ -240,6 +318,18 @@ export default {
       operate === 'add'
         ? (this.pageInfo.num1 = data + 1)
         : (this.pageInfo.num1 = data - 1)
+    },
+    // 更改左侧小分
+    changeSmallScore1 (data, operate) {
+      operate === 'add'
+        ? (this.smallInfo.smallNum1 = data + 1)
+        : (this.smallInfo.smallNum1 = data - 1)
+    },
+    // 更改右侧小分
+    changeSmallScore2 (data, operate) {
+      operate === 'add'
+        ? (this.smallInfo.smallNum2 = data + 1)
+        : (this.smallInfo.smallNum2 = data - 1)
     },
     // 将所有input框恢复成文字
     recoverText () {
@@ -271,6 +361,9 @@ export default {
         localStorage.setItem('LocalPageInfo', JSON.stringify(val))
       },
       deep: true
+    },
+    bottomInfo (val) {
+      localStorage.setItem('LocalBottomInfo', val)
     }
   }
 }
