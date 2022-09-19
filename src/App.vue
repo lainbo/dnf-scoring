@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="disabled">
+  <div>
     <div
       class="total_score h-55px flex items-center justify-around text-26px font-bold px-10px"
       @click.ctrl="clearNum"
@@ -173,9 +173,7 @@
 <script>
 import Cell from './components/cell.vue'
 import ScoreItem from './components/scoreItem.vue'
-import auth from '@/mixins/auth.js'
 export default {
-  mixins: [auth],
   components: { Cell, ScoreItem },
   data () {
     return {
@@ -267,7 +265,6 @@ export default {
     if (LOCAL_BOTTOM_INFO) {
       this.bottomInfo = LOCAL_BOTTOM_INFO
     }
-    this.polling()
   },
   mounted () {},
   methods: {
