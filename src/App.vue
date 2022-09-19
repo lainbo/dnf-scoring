@@ -52,7 +52,7 @@
     <el-collapse-transition>
       <div
         v-show="小分vis"
-        class="total_score h-45px flex items-center justify-around text-22px font-bold px-10px transition-all duration-300"
+        class="total_score h-45px flex items-center justify-around text-22px font-bold  transition-all duration-350"
         @click.ctrl="clearSmallNum"
       >
         <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
@@ -165,7 +165,7 @@
       </el-table>
     </div>
     <div
-      class="h-70px text-24px font-bold text-center pt-8px leading-28px outline-none"
+      class="min-h-70px text-24px font-bold text-center py-4px flex flex-col justify-center leading-28px outline-none total_score"
       contenteditable="true"
       v-html="bottomInfo"
       @click.ctrl="clearBottomInfo"
