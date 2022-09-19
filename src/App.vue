@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-loading="disabled">
     <div
       class="total_score h-55px flex items-center justify-around text-26px font-bold px-10px"
       @click.ctrl="clearNum"
@@ -177,10 +177,12 @@
 <script>
 import Cell from './components/cell.vue'
 import ScoreItem from './components/scoreItem.vue'
+import axios from 'axios'
 export default {
   components: { Cell, ScoreItem },
   data () {
     return {
+      disabled: false,
       小分按钮vis: false,
       小分vis: false,
       pageInfo: {
@@ -269,9 +271,15 @@ export default {
     if (LOCAL_BOTTOM_INFO) {
       this.bottomInfo = LOCAL_BOTTOM_INFO
     }
+    this.getAuth()
   },
   mounted () {},
   methods: {
+    async getAuth () {
+      const url = 'https://www.fastmock.site/mock/003e6703669b7e59c74e8460e6fc0100/tools/scoreboard/auth'
+      const { data } = await axios.post(url)
+      this.disabled = data.disabled
+    },
     // 变更底部信息
     changePs (e) {
       const text = e.target.innerText.replaceAll('\n', '<br/>')
