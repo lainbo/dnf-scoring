@@ -173,12 +173,12 @@
 <script>
 import Cell from './components/cell.vue'
 import ScoreItem from './components/scoreItem.vue'
-import axios from 'axios'
+import auth from '@/mixins/auth.js'
 export default {
+  mixins: [auth],
   components: { Cell, ScoreItem },
   data () {
     return {
-      disabled: false,
       小分按钮vis: false,
       小分vis: false,
       pageInfo: {
@@ -271,20 +271,6 @@ export default {
   },
   mounted () {},
   methods: {
-    // 轮询获取权限
-    polling () {
-      this.getAuth()
-      setInterval(() => {
-        this.getAuth()
-      }, 1000 * 60 * 8)
-    },
-    async getAuth () {
-      console.log(new Date().getTime())
-      const url =
-        'https://www.fastmock.site/mock/003e6703669b7e59c74e8460e6fc0100/tools/scoreboard/auth'
-      const { data } = await axios.post(url)
-      this.disabled = data.disabled
-    },
     // 变更底部信息
     changePs (e) {
       const text = e.target.innerText.replaceAll('\n', '<br/>')
