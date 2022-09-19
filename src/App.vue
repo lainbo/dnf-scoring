@@ -26,15 +26,13 @@
               @click.right="changeTeam"
             ></i>
           </p>
-          <el-collapse-transition>
-            <p
-              v-show="小分按钮vis"
-              class="text-14px mt-6px cursor-pointer select-none hover:text-[#cd1803]"
-              @click="小分vis = !小分vis"
-            >
-              小分
-            </p>
-          </el-collapse-transition>
+          <p
+            :class="[小分按钮vis ? 'h-14px' : 'h-0 !m-0']"
+            class="text-14px mt-6px overflow-hidden transition-all duration-300 cursor-pointer select-none hover:text-[#cd1803]"
+            @click="小分vis = !小分vis"
+          >
+            小分
+          </p>
         </div>
         <div
           class="w-30px ml-20px flex items-center"
@@ -49,41 +47,39 @@
     </div>
 
     <!-- start：小分部分 -->
-    <el-collapse-transition>
-      <div
-        :class="[小分vis ? 'h-45px' : 'h-0 !border-0']"
-        class="total_score flex items-center overflow-hidden justify-around text-22px font-bold  transition-all duration-400 hover:bg-[#f5f7fa]"
-        @click.ctrl="clearSmallNum"
-      >
-        <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
-          {{ pageInfo.firstBlue ? '蓝队小分' : '红队小分' }}
+    <div
+      :class="[小分vis ? 'h-45px' : 'h-0 !border-0']"
+      class="total_score flex items-center overflow-hidden justify-around text-22px font-bold transition-all duration-400 hover:bg-[#f5f7fa]"
+      @click.ctrl="clearSmallNum"
+    >
+      <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
+        {{ pageInfo.firstBlue ? '蓝队小分' : '红队小分' }}
+      </div>
+      <div class="flex h-full">
+        <div
+          class="mr-14px flex items-center"
+          :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
+        >
+          <ScoreItem
+            :score="smallInfo.smallNum1"
+            @change-score="changeSmallScore1"
+          />
         </div>
-        <div class="flex h-full">
-          <div
-            class="mr-14px flex items-center"
-            :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
-          >
-            <ScoreItem
-              :score="smallInfo.smallNum1"
-              @change-score="changeSmallScore1"
-            />
-          </div>
-          <p class="flex items-center text-center">:</p>
-          <div
-            class="w-30px ml-26px flex items-center"
-            :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
-          >
-            <ScoreItem
-              :score="smallInfo.smallNum2"
-              @change-score="changeSmallScore2"
-            />
-          </div>
-        </div>
-        <div :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'">
-          {{ pageInfo.firstBlue ? '红队小分' : '蓝队小分' }}
+        <p class="flex items-center text-center">:</p>
+        <div
+          class="w-30px ml-26px flex items-center"
+          :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
+        >
+          <ScoreItem
+            :score="smallInfo.smallNum2"
+            @change-score="changeSmallScore2"
+          />
         </div>
       </div>
-    </el-collapse-transition>
+      <div :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'">
+        {{ pageInfo.firstBlue ? '红队小分' : '蓝队小分' }}
+      </div>
+    </div>
     <div class="table_main px-4px">
       <el-table :data="tableData" style="width: 100%" :show-header="false">
         <el-table-column prop="name1" label="ID" min-width="56">
@@ -284,7 +280,8 @@ export default {
     },
     async getAuth () {
       console.log(new Date().getTime())
-      const url = 'https://www.fastmock.site/mock/003e6703669b7e59c74e8460e6fc0100/tools/scoreboard/auth'
+      const url =
+        'https://www.fastmock.site/mock/003e6703669b7e59c74e8460e6fc0100/tools/scoreboard/auth'
       const { data } = await axios.post(url)
       this.disabled = data.disabled
     },
