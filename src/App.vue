@@ -52,7 +52,7 @@
     <el-collapse-transition>
       <div
         v-show="小分vis"
-        class="total_score h-45px flex items-center justify-around text-22px font-bold  transition-all duration-350"
+        class="total_score h-45px flex items-center justify-around text-22px font-bold  transition-all duration-350 hover:bg-[#f5f7fa]"
         @click.ctrl="clearSmallNum"
       >
         <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
