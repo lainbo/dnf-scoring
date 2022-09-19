@@ -51,8 +51,8 @@
     <!-- start：小分部分 -->
     <el-collapse-transition>
       <div
-        v-show="小分vis"
-        class="total_score h-45px flex items-center justify-around text-22px font-bold  transition-all duration-350 hover:bg-[#f5f7fa]"
+        :class="[小分vis ? 'h-45px' : 'h-0 !border-0']"
+        class="total_score flex items-center overflow-hidden justify-around text-22px font-bold  transition-all duration-400 hover:bg-[#f5f7fa]"
         @click.ctrl="clearSmallNum"
       >
         <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
