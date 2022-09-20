@@ -48,7 +48,7 @@
 
     <!-- start：小分部分 -->
     <div
-      :class="[小分vis ? 'h-45px' : 'h-0 !border-0']"
+      :class="[小分vis ? 'h-45px' : 'h-0 !border-0 pointer-events-none']"
       class="total_score flex items-center overflow-hidden justify-around text-22px font-bold transition-all duration-400 hover:bg-[#f5f7fa]"
       @click.ctrl="clearSmallNum"
     >
