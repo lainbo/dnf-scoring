@@ -161,7 +161,7 @@
       </el-table>
     </div>
     <div
-      class="min-h-70px text-24px font-bold text-center py-4px flex flex-col justify-center leading-28px outline-none total_score"
+      class="min-h-70px text-24px font-bold text-center py-4px leading-28px outline-none"
       contenteditable="true"
       v-html="bottomInfo"
       @click.ctrl="clearBottomInfo"
@@ -188,7 +188,7 @@ export default {
         smallNum1: 0,
         smallNum2: 0
       },
-      bottomInfo: '今天我和队长看好<br />老群GG了, 大家加新群: 913958545',
+      bottomInfo: '今天我和队长看好！',
       tableData: [
         {
           index: 1,

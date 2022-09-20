@@ -3386,7 +3386,7 @@ core-js@^2.4.0:
   resolved "https://registry.npmmirror.com/core-js/-/core-js-2.6.12.tgz"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.23.4:
+core-js@^3.25.2:
   version "3.25.2"
   resolved "https://registry.npmmirror.com/core-js/-/core-js-3.25.2.tgz#2d3670c1455432b53fa780300a6fc1bd8304932c"
   integrity sha512-YB4IAT1bjEfxTJ1XYy11hJAKskO+qmhuDBM8/guIfMz4JvdsAQAqvyb97zXX7JgSrfPLG5mRGFWJwJD39ruq2A==
@@ -4156,7 +4156,7 @@ electron-to-chromium@^1.4.71:
   resolved "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.71.tgz"
   integrity sha512-Hk61vXXKRb2cd3znPE9F+2pLWdIOmP7GjiTj45y6L3W/lO+hSnUSUhq+6lEaERWBdZOHbk2s3YV5c9xVl3boVw==
 
-electron@^17.4.10:
+electron@^17.4.11:
   version "17.4.11"
   resolved "https://registry.npmmirror.com/electron/-/electron-17.4.11.tgz#82899a44336bf8f1af15c6312c7f51ae3f4a519b"
   integrity sha512-mdSWM2iY/Bh5bKzd5drYS3mf8JWyR9P9UXZA2uLEZ+1fhgLEVkY9qu501QHoMsKlNwgn96EreQC+dfdQ75VTcA==
@@ -4165,10 +4165,10 @@ electron@^17.4.10:
     "@types/node" "^14.6.2"
     extract-zip "^1.0.3"
 
-element-ui@^2.15.9:
-  version "2.15.9"
-  resolved "https://registry.npmmirror.com/element-ui/-/element-ui-2.15.9.tgz#b03548e007b7ab7496c49a282db92a0fffd7efc7"
-  integrity sha512-dx45nQLt4Hn87/Z9eRr3ex6KFZbxlFAwEU3QoW3wA5EsYftvHTyL9Pq7VnXXD7hu1Eiaup2jcs6kp+/VSFmXuA==
+element-ui@^2.15.10:
+  version "2.15.10"
+  resolved "https://registry.npmmirror.com/element-ui/-/element-ui-2.15.10.tgz#fde0ff5cb4c30e8eb166d617f85916defe5948f1"
+  integrity sha512-jmD++mU2wKXbisvx4fxOl2mHaU+HWHTAq/3Wf8x9Bwyu4GdDZPLABb+CGi3DWN6fPqdgRcd74aX39DO+YHObLw==
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -8842,7 +8842,7 @@ sass-loader@^8.0.2:
     schema-utils "^2.6.1"
     semver "^6.3.0"
 
-sass@^1.53.0:
+sass@^1.54.9:
   version "1.54.9"
   resolved "https://registry.npmmirror.com/sass/-/sass-1.54.9.tgz#b05f14ed572869218d1a76961de60cd647221762"
   integrity sha512-xb1hjASzEH+0L0WI9oFjqhRi51t/gagWnxLiwUNMltA0Ab6jIDkAacgKiGYKM9Jhy109osM7woEEai6SXeJo5Q==
@@ -10333,7 +10333,7 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-template-compiler@^2.7.4:
+vue-template-compiler@^2.7.10:
   version "2.7.10"
   resolved "https://registry.npmmirror.com/vue-template-compiler/-/vue-template-compiler-2.7.10.tgz#9e20f35b2fdccacacf732dd7dedb49bf65f4556b"
   integrity sha512-QO+8R9YRq1Gudm8ZMdo/lImZLJVUIAM8c07Vp84ojdDAf8HmPJc7XB556PcXV218k2AkKznsRz6xB5uOjAC4EQ==
@@ -10346,7 +10346,7 @@ vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.npmmirror.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue@^2.7.4:
+vue@^2.7.10:
   version "2.7.10"
   resolved "https://registry.npmmirror.com/vue/-/vue-2.7.10.tgz#ae516cc6c88e1c424754468844218fdd5e280f40"
   integrity sha512-HmFC70qarSHPXcKtW8U8fgIkF6JGvjEmDiVInTkKZP0gIlEPhlVlcJJLkdGIDiNkIeA2zJPQTWJUI4iWe+AVfg==
