@@ -33,20 +33,29 @@ async function createWindow () {
     }
     let opacity = 1
     intervalId = setInterval(() => {
-      opacity -= 0.05
+      opacity -= 0.015
       win.setOpacity(opacity)
-      if (opacity <= 0.2) {
+      if (opacity <= 0.3) {
         clearInterval(intervalId)
         intervalId = null
       }
-    }, 50)
+    }, 10)
   })
   win.on('focus', () => {
     if (intervalId) {
       clearInterval(intervalId)
     }
-    win.setOpacity(1)
+    let opacity = 0.1
+    intervalId = setInterval(() => {
+      opacity += 0.1
+      win.setOpacity(opacity)
+      if (opacity >= 1) {
+        clearInterval(intervalId)
+        intervalId = null
+      }
+    }, 10)
   })
+
   win.setMenu(null)
   win.setAlwaysOnTop(true, 'screen-saver')
   if (process.env.WEBPACK_DEV_SERVER_URL) {

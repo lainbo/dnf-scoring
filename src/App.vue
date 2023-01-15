@@ -173,6 +173,7 @@
 <script>
 import Cell from './components/cell.vue'
 import ScoreItem from './components/scoreItem.vue'
+import axios from 'axios'
 export default {
   components: { Cell, ScoreItem },
   data () {
@@ -266,8 +267,16 @@ export default {
       this.bottomInfo = LOCAL_BOTTOM_INFO
     }
   },
-  mounted () {},
+  mounted () {
+    this.getClearData()
+  },
   methods: {
+    async getClearData () {
+      const data = await axios.get('https://www.fastmock.site/mock/003e6703669b7e59c74e8460e6fc0100/tools/scoreboard/clear')
+      if (data?.data?.clearData) {
+        this.clearBottomInfo()
+      }
+    },
     // 变更底部信息
     changePs (e) {
       const text = e.target.innerText.replaceAll('\n', '<br/>')
