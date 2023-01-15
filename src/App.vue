@@ -188,7 +188,7 @@ export default {
         smallNum1: 0,
         smallNum2: 0
       },
-      bottomInfo: '今天我和队长看好！',
+      bottomInfo: '今天我们看好！',
       tableData: [
         {
           index: 1,

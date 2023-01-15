@@ -26,6 +26,27 @@ async function createWindow () {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
     }
   })
+  let intervalId = null
+  win.on('blur', () => {
+    if (intervalId) {
+      clearInterval(intervalId)
+    }
+    let opacity = 1
+    intervalId = setInterval(() => {
+      opacity -= 0.05
+      win.setOpacity(opacity)
+      if (opacity <= 0.2) {
+        clearInterval(intervalId)
+        intervalId = null
+      }
+    }, 50)
+  })
+  win.on('focus', () => {
+    if (intervalId) {
+      clearInterval(intervalId)
+    }
+    win.setOpacity(1)
+  })
   win.setMenu(null)
   win.setAlwaysOnTop(true, 'screen-saver')
   if (process.env.WEBPACK_DEV_SERVER_URL) {
