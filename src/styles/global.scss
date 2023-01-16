@@ -77,6 +77,11 @@ body,
   background: #b6b7b9;
 }
 
+::selection {
+  background-color: #5b61ff;
+  color: #fff;
+}
+
 .plus,
 .minus {
   transition: transform 0.15s ease;

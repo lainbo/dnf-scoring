@@ -4189,7 +4189,7 @@ electron-to-chromium@^1.4.71:
   resolved "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.71.tgz"
   integrity sha512-Hk61vXXKRb2cd3znPE9F+2pLWdIOmP7GjiTj45y6L3W/lO+hSnUSUhq+6lEaERWBdZOHbk2s3YV5c9xVl3boVw==
 
-electron@^17.4.11:
+electron@17.4.11:
   version "17.4.11"
   resolved "https://registry.npmmirror.com/electron/-/electron-17.4.11.tgz#82899a44336bf8f1af15c6312c7f51ae3f4a519b"
   integrity sha512-mdSWM2iY/Bh5bKzd5drYS3mf8JWyR9P9UXZA2uLEZ+1fhgLEVkY9qu501QHoMsKlNwgn96EreQC+dfdQ75VTcA==
