@@ -27,33 +27,45 @@ async function createWindow () {
     }
   })
   let intervalId = null
+
   win.on('blur', () => {
     if (intervalId) {
       clearInterval(intervalId)
     }
     let opacity = 1
     intervalId = setInterval(() => {
-      opacity -= 0.015
-      win.setOpacity(opacity)
+      opacity -= 0.05
+      if (!win.isDestroyed()) {
+        win.setOpacity(opacity)
+      }
       if (opacity <= 0.3) {
         clearInterval(intervalId)
         intervalId = null
       }
-    }, 10)
+    }, 20)
   })
+
   win.on('focus', () => {
     if (intervalId) {
       clearInterval(intervalId)
     }
-    let opacity = 0.1
+    let opacity = 0.3
     intervalId = setInterval(() => {
-      opacity += 0.1
-      win.setOpacity(opacity)
+      opacity += 0.05
+      if (!win.isDestroyed()) {
+        win.setOpacity(opacity)
+      }
       if (opacity >= 1) {
         clearInterval(intervalId)
         intervalId = null
       }
-    }, 10)
+    }, 20)
+  })
+
+  win.on('close', () => {
+    if (intervalId) {
+      clearInterval(intervalId)
+    }
   })
 
   win.setMenu(null)
