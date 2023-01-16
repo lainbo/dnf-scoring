@@ -38,7 +38,7 @@ async function createWindow () {
       if (!win.isDestroyed()) {
         win.setOpacity(opacity)
       }
-      if (opacity <= 0.3) {
+      if (opacity <= 0.10) {
         clearInterval(intervalId)
         intervalId = null
       }
@@ -49,7 +49,7 @@ async function createWindow () {
     if (intervalId) {
       clearInterval(intervalId)
     }
-    let opacity = 0.3
+    let opacity = 0.10
     intervalId = setInterval(() => {
       opacity += 0.05
       if (!win.isDestroyed()) {
