@@ -92,3 +92,7 @@ body,
     filter: brightness(0.9);
   }
 }
+
+::-webkit-scrollbar {
+  display: none !important;
+}
