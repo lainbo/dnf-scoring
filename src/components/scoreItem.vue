@@ -2,14 +2,14 @@
   <div class="score_item flex items-center">
     <div>{{ score }}</div>
     <div
-      class="operation_item flex flex-col justify-center space-y-1 invisible"
+      class="operation_item flex flex-col justify-center space-y-4px invisible"
     >
       <i
-        class="text-16px cursor-pointer text-[#00b42a] el-icon-circle-plus plus"
+        class="text_16r cursor-pointer text-[#00b42a] el-icon-circle-plus plus"
         @click="changeScore('add')"
       ></i>
       <i
-        class="text-16px cursor-pointer text-[#f00] el-icon-remove minus"
+        class="text_16r cursor-pointer text-[#f00] el-icon-remove minus"
         @click="changeScore('subtract')"
       ></i>
     </div>

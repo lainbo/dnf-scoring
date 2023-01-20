@@ -13,10 +13,10 @@ protocol.registerSchemesAsPrivileged([
 async function createWindow () {
   // Create the browser window.
   const win = new BrowserWindow({
-    minWidth: 450,
-    minHeight: 400,
-    width: 450,
-    height: 380,
+    minWidth: 240,
+    minHeight: 220,
+    width: 360,
+    height: 300,
     maximizable: false,
     webPreferences: {
 
@@ -26,47 +26,47 @@ async function createWindow () {
       contextIsolation: !process.env.ELECTRON_NODE_INTEGRATION
     }
   })
-  let intervalId = null
+  // let intervalId = null
 
-  win.on('blur', () => {
-    if (intervalId) {
-      clearInterval(intervalId)
-    }
-    let opacity = 1
-    intervalId = setInterval(() => {
-      opacity -= 0.05
-      if (!win.isDestroyed()) {
-        win.setOpacity(opacity)
-      }
-      if (opacity <= 0.08) {
-        clearInterval(intervalId)
-        intervalId = null
-      }
-    }, 20)
-  })
+  // win.on('blur', () => {
+  //   if (intervalId) {
+  //     clearInterval(intervalId)
+  //   }
+  //   let opacity = 1
+  //   intervalId = setInterval(() => {
+  //     opacity -= 0.05
+  //     if (!win.isDestroyed()) {
+  //       win.setOpacity(opacity)
+  //     }
+  //     if (opacity <= 0.08) {
+  //       clearInterval(intervalId)
+  //       intervalId = null
+  //     }
+  //   }, 20)
+  // })
 
-  win.on('focus', () => {
-    if (intervalId) {
-      clearInterval(intervalId)
-    }
-    let opacity = 0.08
-    intervalId = setInterval(() => {
-      opacity += 0.05
-      if (!win.isDestroyed()) {
-        win.setOpacity(opacity)
-      }
-      if (opacity >= 1) {
-        clearInterval(intervalId)
-        intervalId = null
-      }
-    }, 20)
-  })
+  // win.on('focus', () => {
+  //   if (intervalId) {
+  //     clearInterval(intervalId)
+  //   }
+  //   let opacity = 0.08
+  //   intervalId = setInterval(() => {
+  //     opacity += 0.05
+  //     if (!win.isDestroyed()) {
+  //       win.setOpacity(opacity)
+  //     }
+  //     if (opacity >= 1) {
+  //       clearInterval(intervalId)
+  //       intervalId = null
+  //     }
+  //   }, 20)
+  // })
 
-  win.on('close', () => {
-    if (intervalId) {
-      clearInterval(intervalId)
-    }
-  })
+  // win.on('close', () => {
+  //   if (intervalId) {
+  //     clearInterval(intervalId)
+  //   }
+  // })
 
   win.setMenu(null)
   win.setAlwaysOnTop(true, 'screen-saver')

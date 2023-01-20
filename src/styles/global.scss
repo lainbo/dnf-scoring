@@ -11,6 +11,9 @@ body,
     —apple-system, Segoe UI, Rototo, Helvetica, Arial, sans-serif !important;
   background-color: #fff;
 }
+html {
+  font-size: 22.2222vw;
+}
 
 .el-message {
   min-width: inherit;
@@ -95,4 +98,33 @@ body,
 
 ::-webkit-scrollbar {
   display: none !important;
+}
+
+.text_16r {
+  font-size: 0.16rem;
+}
+.text_22r {
+  font-size: 0.22rem;
+}
+.text_24r {
+  font-size: 0.24rem;
+}
+.text_26r {
+  font-size: 0.26rem;
+}
+
+
+@media screen and (min-width: 450px) {
+  .text_16r {
+    font-size: 16px !important;
+  }
+  .text_22r {
+    font-size: 22px !important;
+  }
+  .text_24r {
+    font-size: 24px !important;
+  }
+  .text_26r {
+    font-size: 26px !important;
+  }
 }

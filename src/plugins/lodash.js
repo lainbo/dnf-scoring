@@ -4,12 +4,14 @@ import VueLodash from 'vue-lodash'
 import cloneDeep from 'lodash/cloneDeep'
 import isEqual from 'lodash/isEqual'
 import merge from 'lodash/merge'
+import throttle from 'lodash/throttle'
 
 Vue.use(VueLodash, {
   name: 'lo',
   lodash: {
     cloneDeep,
     isEqual,
-    merge
+    merge,
+    throttle
   }
 })

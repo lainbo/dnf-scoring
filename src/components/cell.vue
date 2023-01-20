@@ -1,6 +1,6 @@
 <template>
   <div class="flex relative cell_item">
-    <div class="w-50px transition-all mr-8px">
+    <div class="w-50px transition-all mr-8px text_24r">
       <template v-if="hasA && row[field] > 0">A</template>
       <span v-if="['killNum1', 'killNum2'].includes(field)">
         {{ row[field] }}
@@ -8,14 +8,15 @@
       <span v-else :class="calcRed(row)">{{ calcNum(row) }}</span>
     </div>
     <div
-      class="operation_item flex flex-col justify-center space-y-1 absolute right-0 top-1/2 transform -translate-y-1/2 invisible"
+      class="operation_item flex flex-col justify-center space-y-4px absolute right-10px top-1/2 transform -translate-y-1/2 invisible"
+      :class="[hasA && 'right-6px',!isSmall && '!right-0']"
     >
       <i
-        class="text-16px cursor-pointer text-[#00b42a] el-icon-circle-plus plus"
+        class="text_16r cursor-pointer text-[#00b42a] el-icon-circle-plus plus"
         @click="changeNum(row, field, 'add')"
       ></i>
       <i
-        class="text-16px cursor-pointer text-[#f00] el-icon-remove minus"
+        class="text_16r cursor-pointer text-[#f00] el-icon-remove minus"
         @click="changeNum(row, field, 'subtract')"
       ></i>
     </div>
@@ -34,6 +35,10 @@ export default {
     },
     field: {
       type: String
+    },
+    isSmall: {
+      type: Boolean,
+      required: true
     }
   },
   data () {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="total_score h-55px flex items-center justify-around text-26px font-bold px-10px"
+      class="total_score py-8px px-10px flex items-center justify-around text_26r font-bold"
       @click.ctrl="clearNum"
     >
       <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
@@ -10,7 +10,7 @@
       <div class="flex h-full">
         <div
           class="mr-14px flex items-center"
-          :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'"
+          :class="[pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]',isSmall && '!mr-10px']"
         >
           <ScoreItem :score="pageInfo.num1" @change-score="changeScore1" />
         </div>
@@ -19,9 +19,9 @@
           @mouseenter="小分按钮vis = true"
           @mouseleave="小分按钮vis = false"
         >
-          <p>
+          <p class="flex items-center justify-center">
             <i
-              class="total_icon cursor-pointer el-icon-sort transition-all text-24px hover:text-[#00b42a]"
+              class="total_icon cursor-pointer el-icon-sort transition-all text_24r hover:text-[#00b42a]"
               @click="pageInfo.firstBlue = !pageInfo.firstBlue"
               @click.right="changeTeam"
             ></i>
@@ -36,7 +36,7 @@
         </div>
         <div
           class="w-30px ml-20px flex items-center"
-          :class="pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]'"
+          :class="[pageInfo.firstBlue ? 'text-[#cd1803]' : 'text-[#004ece]',isSmall && '!ml-16px']"
         >
           <ScoreItem :score="pageInfo.num2" @change-score="changeScore2" />
         </div>
@@ -49,7 +49,7 @@
     <!-- start：小分部分 -->
     <div
       :class="[小分vis ? 'h-45px' : 'h-0 !border-0 pointer-events-none']"
-      class="total_score flex items-center overflow-hidden justify-around text-22px font-bold transition-all duration-400 hover:bg-[#f5f7fa]"
+      class="total_score flex items-center overflow-hidden justify-around text_22r font-bold transition-all duration-400 hover:bg-[#f5f7fa]"
       @click.ctrl="clearSmallNum"
     >
       <div :class="pageInfo.firstBlue ? 'text-[#004ece]' : 'text-[#cd1803]'">
@@ -99,12 +99,12 @@
                 class="select-none cursor-pointer"
                 @click="changeName(row, 'editName1', 'elInputName1')"
               >
-                <span class="relative">
+                <span class="relative" :class="{'flex items-center':isSmall}">
                   <i
                     v-if="row.index === 1"
                     class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
                   />
-                  <span class="text-24px">{{ row.name1 || 'ID' }}</span>
+                  <span class="text_24r">{{ calcName(row.name1) || 'ID' }}</span>
                 </span>
               </div>
             </template>
@@ -112,12 +112,12 @@
         </el-table-column>
         <el-table-column prop="killNum1" label="Kill" width="60" align="center">
           <template v-slot="{ row }">
-            <Cell :row="row" field="killNum1" />
+            <Cell :row="row" field="killNum1" :isSmall="isSmall" />
           </template>
         </el-table-column>
-        <el-table-column prop="akNum1" label="AK" width="50" align="center">
+        <el-table-column prop="akNum1" label="AK" width="50" align="center" key="akNum1" v-if="!isMini">
           <template v-slot="{ row }">
-            <Cell hasA :row="row" field="akNum1" />
+            <Cell hasA :row="row" field="akNum1" :isSmall="isSmall" />
           </template>
         </el-table-column>
         <el-table-column prop="name2" label="ID" min-width="60">
@@ -137,12 +137,12 @@
                 class="select-none cursor-pointer ml-4px"
                 @click="changeName(row, 'editName2', 'elInputName2')"
               >
-                <span class="relative">
+                <span class="relative" :class="{'flex items-center':isSmall}">
                   <i
                     v-if="row.index === 1"
                     class="text-12px absolute -right-9px -top-1px el-icon-star-on text-[#ffa500] z-50"
                   />
-                  <span class="text-24px">{{ row.name2 || 'ID' }}</span>
+                  <span class="text_24r">{{ calcName(row.name2) || 'ID' }}</span>
                 </span>
               </div>
             </template>
@@ -150,18 +150,18 @@
         </el-table-column>
         <el-table-column prop="killNum2" label="Kill" width="60" align="center">
           <template v-slot="{ row }">
-            <Cell :row="row" field="killNum2" />
+            <Cell :row="row" field="killNum2" :isSmall="isSmall" />
           </template>
         </el-table-column>
-        <el-table-column prop="akNum2" label="AK" width="50" align="center">
+        <el-table-column prop="akNum2" label="AK" width="50" align="center" key="akNum2" v-if="!isMini">
           <template v-slot="{ row }">
-            <Cell hasA :row="row" field="akNum2" />
+            <Cell hasA :row="row" field="akNum2" :isSmall="isSmall" />
           </template>
         </el-table-column>
       </el-table>
     </div>
     <div
-      class="min-h-70px text-24px font-bold text-center py-4px leading-28px outline-none"
+      class="min-h-70px text_24r font-bold text-center py-4px leading-28px outline-none"
       contenteditable="true"
       v-html="bottomInfo"
       @click.ctrl="clearBottomInfo"
@@ -178,6 +178,7 @@ export default {
   components: { Cell, ScoreItem },
   data () {
     return {
+      screenWidth: 0,
       小分按钮vis: false,
       小分vis: false,
       pageInfo: {
@@ -266,11 +267,29 @@ export default {
     if (LOCAL_BOTTOM_INFO) {
       this.bottomInfo = LOCAL_BOTTOM_INFO
     }
+    this.throttledHandleResize = this.lodash.throttle(this.handleResize, 200)
+    window.addEventListener('resize', this.throttledHandleResize)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.throttledHandleResize)
   },
   mounted () {
     this.getClearData()
+    this.screenWidth = window.innerWidth
   },
   methods: {
+    handleResize () {
+      this.screenWidth = window.innerWidth
+    },
+    calcName (str = '') {
+      if (this.isMini) {
+        return str
+      } else if (this.isSmall) {
+        return str.substring(0, 2)
+      } else {
+        return str
+      }
+    },
     async getClearData () {
       const data = await axios.get('https://www.fastmock.site/mock/003e6703669b7e59c74e8460e6fc0100/tools/scoreboard/clear')
       if (data?.data?.clearData) {
@@ -353,8 +372,21 @@ export default {
       })
     }
   },
-  computed: {},
+  computed: {
+    isSmall () {
+      return this.screenWidth < 410
+    },
+    isMini () {
+      return this.screenWidth < 350
+    }
+  },
   watch: {
+    screenWidth: {
+      handler (newWidth) {
+        this.screenWidth = newWidth
+      },
+      immediate: true
+    },
     tableData: {
       handler (val) {
         localStorage.setItem('LocalTable', JSON.stringify(val))
@@ -375,6 +407,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .total_score {
   border-bottom: 1px solid #ebeef5;
 }
@@ -391,7 +424,7 @@ export default {
     }
     .cell {
       overflow: visible;
-      line-height: 2.2;
+      line-height: 2;
       padding: 0 !important;
       font-size: 24px;
       color: #000;
